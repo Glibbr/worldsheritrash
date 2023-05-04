@@ -1,0 +1,137 @@
+/* Size for brand */
+nav .navbar-brand {
+  font-size: xx-large;
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+
+.container {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  max-width: 100%;
+}
+
+body {
+  font-family: monospace;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+
+}
+
+.fadeMe {
+  opacity:0.7;
+  filter: alpha(opacity=10);
+  background-color:#000;
+  width:100%;
+  height:100vh;
+  z-index:1;
+  position:fixed;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.red {
+  color: #cc0000;
+}
+
+.green {
+  color: #59b101;
+}
+
+/* Placeholder text format*/
+.form-control::::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #D3D3D3;
+  opacity: 1; /* Firefox */
+}
+
+.form-control:::-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #D3D3D3;
+}
+
+.form-control::::-ms-input-placeholder { /* Microsoft Edge */
+  color: #D3D3D3;
+}
+
+/* mirror the image */
+video, .photo,
+canvas {
+  transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+}
+
+/* Image scaling */
+img{
+  max-width: 100%;
+  max-height: 100%;
+  display: block; /* remove extra space below image */
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+/* Flask flash message appearance */
+.alert {
+  padding: 12px;
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.alert-error {
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+
+.alert-info {
+  background-color: green;
+  color: white;
+  text-align: center;
+}
+
+#hideMe {
+  -webkit-animation: cssAnimation 4s forwards;
+  animation: cssAnimation 4s forwards;
+}
+
+/* map height */
+html, body, #map {
+  height: 80vh;
+  width: 100%;
+}
+
+.btn {
+  margin: 3px;
+}
+
+.leaflet-popup-content-wrapper{
+  background-color: black;
+  color: white;
+  opacity: 0.8;
+}
+
+.leaflet-popup-tip {
+  background-color: black;
+  color: white;
+  opacity: 0.8;
+}
+
+@keyframes cssAnimation {
+  0% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes cssAnimation {
+  0% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}

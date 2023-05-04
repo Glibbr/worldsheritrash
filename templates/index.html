@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    World Heritrash - All the trash in one place
+{% endblock %}
+
+{% block main %}
+
+    <!-- Trash & clean pins -->
+    <script>
+        const trash_pins = {{ trash_pins|tojson|safe }};
+        const clean_pins = {{ clean_pins|tojson|safe }};
+    </script>
+
+    <div id="map""></div>
+    <!-- Map scripts -->
+    <script src="/static/js/map.js"></script>
+
+{% endblock %}

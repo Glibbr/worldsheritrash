@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Report trash
+{% endblock %}
+
+{% block main %}
+
+{% if session["user_id"] %}
+
+<div>
+    <h1>TRASH REPORT</h1><br>
+    <h6 style="color: gray">Found some trash? Remove it or file a report!</h6>
+</div>
+
+<br>
+<hr class="solid">
+
+<form action="/report" method="post" name="report" id="report">
+
+    <div align="left" style="padding-left: 3%; padding-right: 3%; padding-top: 5%">
+        <table class="table table-sm">
+            <tr>
+                <td><span style="color:gray">Title:</span></td>
+                <td>
+                    <div class="mb-2">
+                        <input class="form-control" action="JavaScript:generateName()" align="" left" id="title"
+                            name="title" value="title_name" type="text">
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="width:30%"><span style="color:gray">Reported by:</span></td>
+                <td>{{ session["user_name"] }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><span style="color:gray">Date/Time:</span></td>
+                <td><span id="datetime">
+                        <script>const d = new Date();
+                            document.getElementById("datetime").innerHTML = d.toUTCString();
+                        </script>
+                    </span></td>
+            </tr>
+            <tr>
+                <td><span style="color:gray">Latitude:</span></td>
+                <td>{{ lat }}</td>
+            </tr>
+            <tr>
+                <td><span style="color:gray">Longitude:</span></td>
+                <td>{{ lng }}</td>
+            </tr>
+        </table>
+    </div>
+    <audio src="http://www.soundjay.com/mechanical/camera-shutter-click-08.mp3"></audio>
+    <div id="videoDiv">
+        <video id="myVideo" autoplay></video>
+    </div>
+
+    <div id="photoDiv" class="output">
+        <img id="photo">
+    </div>
+    <!-- Local script for image capturing -->
+    <script src="/static/js/capture.js"></script>
+</form>
+
+<br>
+<div style="padding-left: 3%; padding-right: 3%">
+    <form action='/upload' class="dropzone rounded" method="post">
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+    <p></p>
+
+    <textarea style="text-align: center" class="form-control" rows="3" name="details"
+        placeholder="Your space to add some more details..." form="report"></textarea>
+
+    <br>
+    <hr class="solid">
+    <h6 style="color: gray">Keep in mind - cleaning up is sometimes faster than reporting! &hearts;</h6>
+</div>
+<br>
+<button class="btn btn-danger" type="submit" name="sub_btn" value="report_submit" onclick="submit_report_btn()">File
+    report</button><br>
+<p></p>
+<button class="btn-close" aria-label="Close" type="submit" name="cancel_sub_btn"
+    onclick="window.location.href='{{ url_for( 'cancel_report' ) }}';"></button>
+<br>
+<p></p>
+
+{% endif %}
+
+{% endblock %}

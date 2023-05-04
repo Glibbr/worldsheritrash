@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Another dirty place!
+{% endblock %}
+
+{% block main %}
+
+<div style="padding-left: 3%; padding-right: 3%; padding-top: 5%">
+    <h1>TRASH REPORT</h1><br>
+    <h6 style="color: gray">Do you want to make our world a better place?<br> Help <b>cleaning up</b> this mess! </h6>
+</div>
+
+<br>
+<hr class="solid">
+
+<div class="img_trash">
+    {% for img in imgs %}
+    <img src="/img/{{ img.file_src }}/{{ img.file_name }}" />
+    {% endfor %}
+</div>
+<br>
+
+<div align="left" style="padding-left: 3%; padding-right: 3%">
+    <table class="table table-sm">
+        <tr>
+            <td style="width:30%"><span style="color:gray">ID:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.ID }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Title:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.title }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Reported by:</span></td>
+            <td>
+                {% for user in user_name %}
+                {{ user.username }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">On:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.report_date }} UTC
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Latitude:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.latitude }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Longitude:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.longitude }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Comment:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.comment }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<br>
+<button class="btn btn-success" type="submit" name="clean_btn" value="clean_submit" onclick="clean_up_btn()">Clean this
+    up!</button><br>
+<script>
+    function clean_up_btn() {
+        window.location.href = ("/cleanup?lat=" +
+        {% for trash in trash_info %}{{ trash.latitude }}{% endfor %}
+        + "&lng=" +
+        {% for trash in trash_info %}{{ trash.longitude }}{% endfor %}
+        + "&id=" +
+        {% for trash in trash_info %}{{ trash.ID }}{% endfor %}
+        );
+        }
+</script>
+
+
+{% if session["user_id"] %}
+<button class="btn btn-danger" type="submit" name="del_rep_btn" value="delete"
+    onclick="window.location.href='{{ url_for( 'delete_report' ) }}';">Delete report</button><br>
+{% endif %}
+<p></p>
+<button class="btn-close" aria-label="Close" type="submit" name="cancel_sub_btn" value="cancel"
+    onclick="window.location.href='{{ url_for( 'index' ) }}';"></button><br>
+<p></p>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Clean Up in progress...
+{% endblock %}
+
+{% block main %}
+
+<div style="padding-left: 3%; padding-right: 3%; padding-top: 5%">
+    <h1>CLEANING REPORT</h1><br>
+    <h6 style="color: gray">You are awesome! <b>Thank you</b> for cleaning things up! &hearts;</h6>
+</div>
+
+{% if session["user_id"] %}
+
+<br>
+<hr class="solid">
+<h1>BEFORE</h1><br>
+<div class="img_trash">
+    {% for img in imgs_trash %}
+    <img src="/img/{{ img.file_src }}/{{ img.file_name }}" />
+    {% endfor %}
+</div>
+<br>
+<!-- Loading in content -->
+<div align="left" style="padding-left: 3%; padding-right: 3%">
+    <table class="table table-sm">
+        <tr>
+            <td style="width:30%"><span style="color:gray">ID:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.ID }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Title:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.title }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Reported by:</span></td>
+            <td>
+                {% for user in user_name_trash %}
+                {{ user.username }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">On:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.report_date }} UTC
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Latitude:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.latitude }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Longitude:</span></td>
+            <td>
+                {% for trash in trash_info %}
+                {{ trash.longitude }}
+                {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="width:30%"><span style="color:gray">Cleaned up by:</span></td>
+            <td>{{ session["user_name"] }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="color:gray">Cleanup Date:</span></td>
+            <td><span id="datetime">
+                    <script>const d = new Date();
+                        document.getElementById("datetime").innerHTML = d.toUTCString();
+                    </script>
+                </span></td>
+        </tr>
+    </table>
+</div>
+
+<form action="/cleanup" method="post" name="cleanup" id="cleanup">
+    <br>
+    <h1>AFTER</h1><br>
+    <audio src="http://www.soundjay.com/mechanical/camera-shutter-click-08.mp3"></audio>
+    <div id="videoDiv">
+        <video id="myVideo" autoplay></video>
+    </div>
+
+    <div id="photoDiv" class="output">
+        <img id="photo">
+    </div>
+    <!-- Local script for image capturing -->
+    <script src="/static/js/cleanup.js"></script>
+</form>
+
+<br>
+<div style="padding-left: 3%; padding-right: 3%">
+    <form action='/upload' class="dropzone rounded" method="post">
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+    <p></p>
+
+    <textarea style="text-align: center" class="form-control" rows="3" name="clean_details"
+        placeholder="Your space to add some more details..." form="cleanup"></textarea>
+
+    <br>
+    <hr class="solid">
+    <h6 style="color: gray">The world is a cleaner place thanks to you! &hearts;</h6>
+</div>
+<br>
+<button class="btn btn-danger" type="submit" name="sub_btn" value="report_submit"
+    onclick="submit_cleanup_report_btn()">Confirm</button>
+
+<br>
+<p></p>
+<button class="btn-close" aria-label="Close" type="submit" name="cancel_sub_btn"
+    onclick="window.location.href='{{ url_for( 'cancel_report' ) }}';"></button>
+<br>
+<p></p>
+
+
+{% endif %}
+
+{% endblock %}
